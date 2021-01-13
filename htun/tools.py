@@ -1,3 +1,4 @@
+import logging
 from htun.args import args
 import subprocess
 import random
@@ -24,19 +25,22 @@ def is_running():
 
 
 def dump(comment, data):
-    logging.debug(comment+hexdump.hexdump(data))
+    if args.debug:
+        logging.debug(comment+hexdump.hexdump(data))
 
 
 def add_route(subnet, via_ip, devname):
-    subprocess.check_call([
-        'ip',
-        'route',
-        'add',
-        subnet,
-        'via',
-        via_ip,
-    ])
-
+    try:
+        subprocess.check_call([
+            'ip',
+            'route',
+            'add',
+            subnet,
+            'via',
+            via_ip,
+        ])
+    except subprocess.CalledProcessError as e:
+        logging.error("Failed to set ip route")
 
 def temp_filename(basename):
     suffix = int(datetime.datetime.now().timestamp()*1000)
