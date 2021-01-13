@@ -1,7 +1,12 @@
 from htun.args import args
-from htun.tools import stop_running, create_iptables_rules, delete_ip_tables_rules
+from htun.tools import stop_running, create_iptables_rules, \
+        delete_ip_tables_rules
 from htun.http_server import run_server
 from htun.tun_iface import TunnelServer
+
+import logging
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 if args.uri:
     is_server = False
@@ -13,8 +18,8 @@ if args.uri:
         from htun.tcp_client import server_socket, create_socket
         reconnect = create_socket
     else:
-        print("Unknown URI protocol: %s (must be one of tcp or http)" %
-              args.server)
+        logging.error("Unknown URI protocol: %s (must be one of tcp or http)" %
+                      args.server)
         exit(1)
 else:
     is_server = True
@@ -26,8 +31,8 @@ else:
         from htun.tcp_server import server_socket, create_socket
         reconnect = create_socket
     else:
-        print("Unknown URI protocol: %s (must be one of tcp or http)" %
-              args.server)
+        logging.error("Unknown URI protocol: %s (must be one of tcp or http)" %
+                      args.server)
         exit(1)
 
 
@@ -42,6 +47,6 @@ def main():
     try:
         server.run()
     except KeyboardInterrupt:
-        print("CTRL-c caught, exiting...")
+        logging.info("CTRL-c caught, exiting...")
         delete_ip_tables_rules()
         stop_running()

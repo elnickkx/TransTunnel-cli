@@ -18,10 +18,10 @@ parser.add_argument('--server-addr', '-s', dest='saddr', default='10.13.37.2',
 parser.add_argument('--tun-netmask', '-m', default='255.255.255.0',
                     dest='tmask', help='tunnel netmask')
 parser.add_argument('--tun-mtu', type=int, default=1420, dest='tmtu',
-                    help='tunnel MTU')
+                   help='tunnel MTU')
 parser.add_argument('--tun-timeout', type=int, default=1, dest='timeout',
                     help='r/w timeout in seconds')
-parser.add_argument('--route-subnet', '-n', type=str, dest='rsubnet', default='default',
+parser.add_argument('--route-subnet', '-n', type=str, dest='rsubnet',
                     help='subnet to be routed via tunnel')
 parser.add_argument('--iface-out', '-i', type=str, dest='ifaceout',
                     help='interface to which the server should route traffic')
