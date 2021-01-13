@@ -1,7 +1,7 @@
-htun
+TransTunnel-cli
 ====
 
-htun is a transparent tunnel for transporting IP traffic over HTTP or TCP.
+TransTunnel-cli is a transparent tunnel api for transporting IP traffic over HTTP or TCP.
 
 It was developed with situations in mind where traffic to the internet is
 restricted. For instance, some networks don't allow traffic to the internet
